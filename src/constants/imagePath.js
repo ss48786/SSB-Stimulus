@@ -29,4 +29,13 @@ export default {
     gallery: require("../assets/images/gallery.png"),
     // search: require("../assets/images/search.png"),
     search: require("../assets/images/search.png"),
+
+    sukhoi: require("../assets/images/Sukhoi.jpg"),
+    tejas: require("../assets/images/tejas.jpg"),
+    mig29: require("../assets/images/MiG-29.jpg"),
+    mig21: require("../assets/images/MiG-21.jpg"),
+    miorage2000: require("../assets/images/Mirage-20001.jpg"),
+    mig27: require("../assets/images/MiG-27.jpg"),
+    rafale: require("../assets/images/Rafale-Jet-4.jpg"),
+
   };

@@ -30,127 +30,12 @@ export default class Search extends Component {
 
   }
 
-  User_Near = () => {
-    const { username } = this.state;
-    const { usersearch, data } = this.props;
-
-    console.log(username);
-
-
-    // let dataSend = {
-    //   name: username
-
-    // }
-    // console.log(data.accessToken);
-    // let headers = {
-
-    //   authorization: data.accessToken
-
-    // }
-    actions.OnNearUser(username)
-      .then(response => {
-        let checkarray = [...response.data]
-        // console.log("RESPONSE DATA  ", response.data);
-        showMessage({
-          type: "success",
-          icon: "success",
-          message: "API HITTED"
-
-        })
-
-        console.log(response, "at search page lets checj")
-
-        this.setState({
-
-          checkarray: checkarray
-
-        })
-
-      }).catch(error => {
-        errorMessage({
-          type: "danger",
-          icon: "danger",
-          message: Error
-        })
-        this.setState({
-          checkarray: []
-        })
-
-        console.log(error)
-
-      });
-  };
-  onNameSearch = text => {
-    const { username, checkarray } = this.state;
-    this.setState({
-      username: text
-    });
-    if (this.searchTimeout) {
-      clearTimeout(this.searchTimeout);
-    } else {
-      if (username.length == 0) {
-        this.setState({
-          checkarray: []
-        })
-      }
-    };
-    this.searchTimeout = setTimeout(() => {
-      this.User_Near();
-    }, 500);
-
-  };
 
 
 
 
 
-  Get_Location = () => {
-    const { testarray } = this.state;
-
-    locationPermission()
-
-      .then(response => {
-
-
-        console.log(response, "check for response");
-        Geolocation.getCurrentPosition(
-          (position) => {
-            console.log(position.coords.latitude, "my testing");
-            console.log(position.coords.longitude, "my testing");
-            const lat = position.coords.latitude;
-            const long = position.coords.longitude;
-            console.log(long,"debug long")
-            actions.OnUserLocation(lat, long).then(response => {
-              console.log(response,"final response")
-              let checkarray = [...response.data]
-              this.setState({
-                checkarray:checkarray
-              })
-
-              showMessage({
-                type: "success",
-                icon: "success",
-                message: "API HITTED"
-      
-              })
-            }).catch(error => {
-
-            })
-
-           }
-             
-    
-        ,(error) => {
-          // See error code charts below.
-          console.log(error.code, error.message);
-        },
-        { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
-      );
-  }).catch(error => {
-    console.log(error, );
-      })
-    }
-
+  
   
 
 
@@ -161,23 +46,7 @@ renderItem = ({ item }) => {
   return (
     <View style={styles.searchview}>
 
-      <TouchableOpacity>
-
-        {/* <View>
-          <Image style={styles.card} source={{
-          uri:item.profileImg[0].original 
-        }} />
-          </View> */}
-        <View style={styles.viewlatestdealscard}>
-          <Image style={styles.card} source={{
-            uri: item.profileImg[0].original
-          }} />
-          <Text style={{ fontWeight: 'bold', marginTop: 10 }}>{item.fullName}</Text>
-        </View>
-
-
-
-      </TouchableOpacity>
+      
 
 
 
@@ -202,14 +71,8 @@ render() {
         <Text style={{ fontSize: 40, fontWeight: '700' }}>Hi, Sahil </Text>
         <Text style={{ fontSize: 40, fontWeight: '700' }}>Find your friends </Text>
       </View>
-      <View stylw={{ position: 'relative' }}>
-        <View style={{ position: 'absolute' }}>
-          <Image style={{ height: 20, width: 20, marginTop: 40, left: 300, zIndex: 1, top: 5, }} source={imagePath.search} />
-        </View>
-
-        <Textinput placeholder="Search for name" styleofsearch={styles.stylesearch} onChangeText={(text) => this.onNameSearch(text)} />
-      </View>
-      <Button buttonName="Search for Location" onButtonPress={this.Get_Location} />
+     
+      
 
       <View>
 
